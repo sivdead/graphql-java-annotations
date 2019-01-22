@@ -33,7 +33,9 @@ public class EnhancedExecutionStrategy extends AsyncSerialExecutionStrategy {
     protected CompletableFuture<ExecutionResult> resolveField(ExecutionContext executionContext, ExecutionStrategyParameters parameters) {
         GraphQLObjectType parentType = (GraphQLObjectType) parameters.getExecutionStepInfo().getType();
         GraphQLFieldDefinition fieldDef = getFieldDef(executionContext.getGraphQLSchema(), parentType, parameters.getField().get(0));
-        if (fieldDef == null) return null;
+        if (fieldDef == null) {
+            return null;
+        }
 
         if (fieldDef.getName().contentEquals(CLIENT_MUTATION_ID)) {
             Field field = (Field) executionContext.getOperationDefinition().getSelectionSet().getSelections().get(0);
